@@ -37,7 +37,7 @@ module Miff
         item.save
         item
       end
-    }.compacu
+    }.compact
   end
 
   def self.fetch_sections
