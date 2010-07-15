@@ -52,9 +52,8 @@ get '/sessions/date/:date' do
 end
 
 
-
 get '/' do
-  'Hello World'
+  redirect '/countries'
 end
 
 
