@@ -1,0 +1,420 @@
+
+/* Calendar */
+
+
+/* bigcalendar */
+table.bigcalendar
+{
+	width: 700px;
+	padding: 0;
+	margin: 0;
+	font: normal 10px/20px "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	color: #aaa;
+	text-align: center;
+	background-color: #fff;
+}
+
+table.bigcalendar caption
+{
+	width: 700px;
+	margin: 0;
+	padding: 0;
+	font: bold 11px/20px "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	color: #fff;
+	background-color: #222;
+	text-align: center;
+}
+
+table.bigcalendar caption a, table.bigcalendar caption a:link { color: #fff; }
+
+table.bigcalendar th
+{
+	color: #222;
+	background: #FFF;
+	padding: 8px 4px;
+		font-size:14px;
+}
+
+table.bigcalendar td
+{
+	background: #fafafa url(img/calendar.jpg) no-repeat top right;
+	width: 100px;
+	height: 100px;
+	text-align: center;
+}
+
+table.bigcalendar td a
+{
+	text-decoration: none;
+	font-weight: bold;
+	display: block;
+	border: 0;
+		height:100px;
+		font-size: 15px;
+}
+
+table.bigcalendar td a:link, table.bigcalendar td a:visited
+{
+		color: #222;
+	background: url(img/calendar.jpg) no-repeat bottom left;
+	border: 0;
+}
+
+table.bigcalendar td a:hover, table.bigcalendar td a:active
+{
+color: #F3D975;
+	background: #fafafa url(img/calendar.jpg) no-repeat top left;
+	border: 0;
+}
+
+
+
+table.calendar
+{
+	width: 160px;
+	padding: 0;
+	margin: 0;
+	border-left: 1px solid #222;
+	font: normal 10px/20px "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	color: #aaa;
+	text-align: center;
+	background-color: #fff;
+}
+
+table.calendar caption
+{
+	width: 160px;
+	margin: 0;
+	padding: 0;
+	font: bold 11px/20px "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	color: #fff;
+	background-color: #222;
+	text-align: center;
+}
+
+table.calendar caption a, table.calendar caption a:link { color: #fff; }
+
+table.calendar th
+{
+	font: bold 11px/20px "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	text-align: center;
+	color: #fff;
+	border-right: 1px solid #222;
+	border-bottom: 1px solid #222;
+	border-top: 1px solid #222;
+	background-color: #666;
+}
+
+.today, td.today a, td.today a:link, td.today a:visited
+{
+	font: bold 11px/20px "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	color: #f00;
+	background: #fff;
+	border: 0;
+}
+
+table.calendar td
+{
+	border-right: 1px solid #222;
+	border-bottom: 1px solid #222;
+	width: 100px;
+	height: 100px;
+	text-align: center;
+}
+
+table.calendar td a
+{
+	text-decoration: none;
+	font-weight: bold;
+	display: block;
+			width: 100px;
+	height: 100px;
+	border: 0;
+}
+
+table.calendar td a:link, table.calendar td a:visited
+{
+	color: #333;
+	background: #f0f0f0;
+	border: 0;
+}
+
+table.calendar td a:hover, table.calendar td a:active
+{
+	color: #f00;
+	background: url(/css/miff2006/bg_calendar.gif) no-repeat right top;
+	border: 0;
+}
+
+/*	
+ * Move Display Helpers
+ */
+
+#slideshow
+{
+	margin-bottom: 0;
+	padding-bottom: 0;
+		height:300px;
+}
+
+#slideshow img.other { display: none; }
+
+#caption
+{
+	color: #888;
+	font-style: italic;
+	font-size: smaller;
+	text-indent: 0;
+	margin-top: 0;
+	padding-top: 0;
+}
+
+#trailerdialog
+{
+	width: 640;
+	height: 385;
+}
+
+span.linkwrapper
+{
+	display: block;
+	margin-bottom: 1em;
+}
+
+#overlay
+{
+	display: none;
+	z-index: 1000;
+	background-color: #333;
+	width: 800;
+	min-height: 395px;
+	border: 1px solid #666;
+	text-align: center;
+	margin: 0 auto;
+	-moz-box-shadow: 0 0 90px 5px #000;
+	-webkit-box-shadow: 0 0 90px #000;
+}
+
+div.contentWrap
+{
+	/*height: 395px;*/
+	overflow-y: auto;
+}
+
+.apple_overlay
+{
+	display: none;
+	background-image: url(img/transparent.png);
+	width: 640px;
+	padding: 0px;
+	font-size: 11px;
+}
+
+.apple_overlay .close
+{
+	background-image: url(img/close.png);
+	position: absolute;
+	right: -15px;
+	top: -15px;
+	cursor: pointer;
+	height: 35px;
+	width: 35px;
+}
+
+div#filmarchive
+{
+	margin: 10px 0;
+	border-bottom: 1px solid #ccc;
+}
+
+.filmtitle
+{
+	font-weight: bold;
+	color: #663;
+}
+
+h3.movieTitle
+{
+	margin-bottom: 0px;
+	font-weight: bold;
+	color: #663;
+}
+
+.filmimg
+{
+	margin: 10px 0;
+	padding: 1px;
+	border: 1px solid #000;
+}
+
+.filmdetails
+{
+	color: #666;
+	font-family: "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	padding: 0 0;
+	margin: 0;
+}
+
+.filmsubheading
+{
+	font-family: "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1em;
+	line-height: 1.1em;
+	font-weight: normal;
+	text-decoration: none;
+	text-align: left;
+	padding: 0;
+	margin: 2px 0 5px 0;
+	color: #444;
+	font-style: italic;
+	text-transform: capitalize;
+}
+
+div.filmdetails
+{
+	font-size: .9em;
+	margin: 6px 0;
+	padding: 6px 0;
+	border-top: 1px solid #ccc;
+}
+
+h4.movieCatYear
+{
+	font-size: 1em;
+	border-bottom: 1px solid #aaa;
+	padding-bottom: .3em;
+	margin-bottom: 1em;
+}
+
+div.controls
+{
+	text-align: right;
+	margin: 12px 0;
+	padding: 12px 0;
+	border-top: 1px solid #ccc;
+}
+
+div.filmSessions, div.filmTrailer {  }
+div.filmSessions h2 {  }
+.session_code { color: #d986a0; }
+
+/* programmeTable */
+table.programmeTable
+{
+	border-left: 1px solid #eee;
+	border-top: 1px solid #eee;
+	width: 100%;
+	margin: 0 0 1em 0;
+	padding: 0;
+}
+
+table.programmeTable th
+{
+	color: #444;
+	background: #efefea;
+	text-transform: uppercase;
+	text-align:left;
+	border-right: 1px solid #eee;
+	border-bottom: 1px solid #eee;
+	padding: 5px;
+	margin: 0;
+}
+
+table.programmeTable tr td
+{
+	padding: 5px;
+	margin: 0;
+	border-right: 1px solid #eee;
+	border-bottom: 1px solid #eee;
+	background-color:#fcfcfc;
+	vertical-align:top;
+}
+
+table.programmeTable tr td.prog_st
+{
+	font-size: 92%;
+	vertical-align: text-top;
+	width: 50px;
+}
+
+table.programmeTable tr td.thumb {width: 180px;}
+
+table.programmeTable tr td img {padding: 10px 0 0 10px }
+/* sessionsTable */
+
+table.sessionTable 
+{
+}
+table.sessionTable tr th
+{
+	color: #222;
+	background: #fff;
+	padding: 8px 4px;
+	font-size:14px;
+	
+}
+
+table.sessionTable tr td
+{
+	color: #333;
+	background: #fff;
+	padding: 8px 4px;
+	
+	border-top: 1px solid #ccc;
+	vertical-align:top;
+}
+
+table.sessionTable tr td.heading
+{
+	color: #eee;
+	background: #666;
+	padding: 4px 4px;
+	
+	border-top: 1px solid #444;
+	vertical-align:top;
+}
+
+
+
+table.sessionTable tr td.controls {text-align:right;padding: 8px 0px 16px 0;}
+
+td.thumb
+{
+	padding: 5px 0;
+	background: transparent url(img/story.jpg) no-repeat top left;
+}
+
+td.snippet
+{
+	font-size: 11px;
+	padding: 5px;
+	background: transparent url(img/story.jpg) no-repeat top left;
+}
+
+
+a.buttonlink {
+	background: #fff url(img/fbox-title.jpg) no-repeat top left;
+	font-size:11px;
+	height: 33px;
+	padding: 	5px 18px; 
+}
+
+
+.section_thumbs {float:left;margin-left:10px;height: 110px; width: 160px;}
+.section_thumbs h3 {margin-bottom:0px;padding:4px 4px;font-size: 12px;color:#000;background-color:#000;}
+.section_thumbs h3 a {color:#FFF; display:block;}
+.special_events_grid .section_thumbs h3 {height: 28px;margin-bottom:0px;padding:4px 4px;font-size: 12px;color:#000;background-color:#000;}
+
+
+#slider-code { height: 110px; margin:0 auto; overflow:hidden; background: #1B2426;-moz-border-radius: 12px; -webkit-border-radius: 12px; }
+#slider-code .buttons { display: block; margin: 35px 10px 0 10px; float: left; width:32px; height:46px; background: url(scroller_images/lArrow.png); text-indent: -99999px; }
+#slider-code .buttons:hover { display: block; margin: 35px 10px 0 10px; float: left; width:32px; height:46px; background: url(scroller_images/lArrow.png) 32px; text-indent: -99999px; }
+#slider-code .viewport { float: left; width: 840px; height: 110px; overflow: hidden; position: relative; }
+#slider-code .next { margin: 35px 0 0 10px;width:32px;height:46px; background: url(scroller_images/rArrow.png);float: left; }
+#slider-code .next:hover { margin: 35px 0 0 10px;width:32px;height:46px; background: url(scroller_images/rArrow.png) 32px;float: left; }
+#slider-code .disable { visibility: hidden; background: url(scroller_images/lArrow.png); }
+#slider-code .overview { list-style: none; position: absolute; padding: 0; margin: 0; left: 0; top: 0; }
+#slider-code .overview li{ float: left; margin: 0 10px 0 0; padding: 1px; height: 110px;  width: 160px;}
+#slider-code .viewport .section_thumbs h3 {margin-bottom:0px;padding:4px 4px;font-size: 12px;color:#FFF}
+#slider-code .viewport  .section_thumbs h3 a {color:#FFF}
