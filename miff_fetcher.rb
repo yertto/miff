@@ -88,7 +88,7 @@ class Film
         # belongs_to associations
         [Distributor, Subtitle].each { |res|
           sym = (n = res.name.downcase).to_sym
-          film.send((n+'=').to_sym, res.first_or_create(:name => h.delete(sym)) ) if h[sym]
+          film.send((n+'=').to_sym, res.first_or_create(:name => h.delete(sym)).strip ) if h[sym]
         }
         film.attributes = h
       end
