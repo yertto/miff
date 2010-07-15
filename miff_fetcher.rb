@@ -26,15 +26,18 @@ module Miff
   def self.fetch_countries
     xpath_fetch('//a[contains(@href, "/films/view?country=")]',
       HOST+'/films/program_2010/browse_by_country').collect { |node|
-      item = Country.first_or_create(:name => node.text.strip)
-      item.films = xpath_fetch('//h3/a[contains(@href, "/films/view?film_id=")]',
-        HOST+node.attributes['href'].value).collect { |a|
-        Film.parse_anchor(a)
-      }
-      raise "Invalid country: #{item.inspect}" unless item.valid?
-      item.save
-      item
-    }
+      name = node.text.strip
+      if name.size > 0
+        item = Country.first_or_create(:name => name)
+        item.films = xpath_fetch('//h3/a[contains(@href, "/films/view?film_id=")]',
+          HOST+node.attributes['href'].value
+        ).collect { |a| Film.parse_anchor(a)
+        }
+        raise "Invalid country: #{item.inspect}" unless item.valid?
+        item.save
+        item
+      end
+    }.compacu
   end
 
   def self.fetch_sections
@@ -42,15 +45,18 @@ module Miff
     cache_file = Pathname.new('.cache/program/sections.html') # XXX need to hard-code a cache_file for this one.
     xpath_fetch('//h3/a[contains(@href, "/program/sections/")]',
       HOST+'/program/sections', cache_file).collect { |node|
-      item = Section.first_or_create(:name => node.text.strip)
-      item.films = xpath_fetch('//h3/a[contains(@href, "/films/view?film_id=")]',
-        HOST+node.attributes['href'].value).collect { |a|
-        Film.parse_anchor(a)
-      }
-      raise "Invalid section: #{item.inspect}" unless item.valid?
-      item.save
-      item
-    }
+      name = node.text.strip
+      if name.size > 0
+        item = Section.first_or_create(:name => node.text.strip)
+        item.films = xpath_fetch('//h3/a[contains(@href, "/films/view?film_id=")]',
+          HOST+node.attributes['href'].value
+        ).collect { |a| Film.parse_anchor(a)
+        }
+        raise "Invalid section: #{item.inspect}" unless item.valid?
+        item.save
+        item
+      end
+    }.compact
   end
 
   def self.parse
