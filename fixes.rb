@@ -29,6 +29,8 @@ module Details
            "D Romuald Karmakar TD 2009"
       when "\342\200\234People know these things happen, but they tend to turn a blind eye. And if you don't talk about it, you think you're the only one.\342\200\235 \342\200\223 filmmaker and model Sara Ziff"
            "D Sara Ziff TD 2009"
+      when "D Gustavo Hern&aacute;ndez P Gustavo Rojo S Oscar Est&eacute;vez Dist Madman  Entertainment L Spanish w/English subtitles TD digibeta/2010"
+           "D Gustavo Hern&aacute;ndez P Gustavo Rojo S Oscar Est&eacute;vez Dist Madman Entertainment L Spanish w/English subtitles TD digibeta/2010"
     else
       details
     end
