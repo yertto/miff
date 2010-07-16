@@ -1,4 +1,6 @@
 #!/usr/bin/ruby -rrubygems
+require 'extlib'
+
 require 'doc_fetcher'
 require 'db'
 require 'fixes'
@@ -18,7 +20,7 @@ module Miff
     i = 0
     xpath_fetch('//td[@class="snippet"]/h3/a', HOST+'/films/browse?grp=all').collect { |a|
       i+=1
-      Film.parse_doc(doc_fetch(HOST+a.attributes['href'].value)) #if i < 3
+      Film.parse_doc(doc_fetch(HOST+a.attributes['href'].value)) if i < 3
       #Film.parse_doc(doc_fetch(HOST+a.attributes['href'].value)) if a.attributes['href'].value == '/films/view?film_id=109640'
     }.compact
   end
@@ -29,9 +31,13 @@ module Miff
       name = node.text.strip
       if name.size > 0
         item = Country.first_or_create(:name => name)
-        item.films = xpath_fetch('//h3/a[contains(@href, "/films/view?film_id=")]',
+        item.films = xpath_fetch('//td[@class="thumb"]/a[contains(@href, "/films/view?film_id=")]',
           HOST+node.attributes['href'].value
-        ).collect { |a| Film.parse_anchor(a) }
+        ).collect { |a|
+          film = Film.parse_anchor(a)
+          film.thumb_url = HOST+a.xpath('img').first.attributes['src'].value 
+          film
+        }
         raise "Invalid country: #{item.inspect}" unless item.valid?
         item.save
         item
@@ -47,9 +53,13 @@ module Miff
       name = node.text.strip
       if name.size > 0
         item = Section.first_or_create(:name => node.text.strip)
-        item.films = xpath_fetch('//h3/a[contains(@href, "/films/view?film_id=")]',
+        item.films = xpath_fetch('//td[@class="thumb"]/a[contains(@href, "/films/view?film_id=")]',
           HOST+node.attributes['href'].value
-        ).collect { |a| Film.parse_anchor(a) }
+        ).collect { |a|
+          film = Film.parse_anchor(a)
+          film.thumb_url = HOST+a.xpath('img').first.attributes['src'].value 
+          film
+        }
         raise "Invalid section: #{item.inspect}" unless item.valid?
         item.save
         item
@@ -84,8 +94,8 @@ class Film
           film.send((n+'=').to_sym, h.delete(sym).collect { |x| res.first_or_create(:name => x.strip) }) if h[sym]
         }
         # belongs_to associations
-        [Distributor, Subtitle, Year, Media].each { |res|
-          sym = (n = res.name.downcase).to_sym
+        [Distributor, Subtitle, Year, Medium].each { |res|
+          sym = (n = Extlib::Inflection::singular(res.storage_name)).to_sym
           film.send((n+'=').to_sym, res.first_or_create(:name => h.delete(sym).strip)) if h[sym]
         }
         film.attributes = h
@@ -139,7 +149,7 @@ class Film
     if details.size > 0
       details = Details::fix(details) if USE_FIXES
       if m = PAT_DETAILS.match(details)
-        h = Hash[ [:p, :s, :directors, :producers, :writers, :distributor_type, :distributor, :languages, :subtitle, :three_d, :media, :year].zip(m.captures) ]
+        h = Hash[ [:p, :s, :directors, :producers, :writers, :distributor_type, :distributor, :languages, :subtitle, :three_d, :medium, :year].zip(m.captures) ]
         [:directors, :producers, :writers, :languages].each { |x| h[x] = h[x].split(', ') if h[x] }
         h[:producers] = h[:directors] if h.delete(:p)
         h[:writers]   = h[:directors] if h.delete(:s)

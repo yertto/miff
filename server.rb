@@ -35,7 +35,7 @@ def create_film_resource(res)
 end
 
 # Use the above helper to create views and routes for the following resources.
-RESOURCES = [Session, Section, Category, Venue, Country, Year, Media, Language, Subtitle, Distributor, Director, Writer, Producer]
+RESOURCES = [Session, Section, Category, Venue, Country, Year, Medium, Language, Subtitle, Distributor, Director, Writer, Producer]
 RESOURCES.each { |res|
   create_film_resource res
 }  
@@ -75,7 +75,7 @@ __END__
 %table
   %thead
     %tr
-      - %w(Name Duration Year Countries Languages Subtitles Director Writers Distributor Media Sessions).each do |th|
+      - %w(Name Duration Year Trailer Countries Languages Subtitles Director Writers Distributor Medium Sessions).each do |th|
         %th.heading= th
   %tbody
     - films.each do |film|
@@ -83,13 +83,16 @@ __END__
         %td= haml :_film_a_popup, :locals => { :film => film }
         %td= "#{film.duration} mins"
         %td= link_to film.year
+        %td
+          -if film.trailer_url
+            %a{:href=>film.trailer_url, :target=>'trailers'} trailer
         %td= film.countries.collect { |country|  link_to country  }
         %td= film.languages.collect { |language| link_to language }
-        %td= film.subtitle
+        %td= link_to film.subtitle
         %td= film.directors.collect { |director| link_to director }
         %td= film.writers.collect   { |writer|   link_to writer   }
-        %td= film.distributor
-        %td= film.media
+        %td= link_to film.distributor
+        %td= link_to film.medium
         %td= film.sessions.collect { |session| link_to session }
 
 
@@ -103,15 +106,15 @@ __END__
     = "L #{film.languages.collect { |x| link_to x }.join(', ')} "
   - if film.subtitle
     = "w/#{link_to film.subtitle} subtitles"
-  = "TD #{haml :_media_a, :locals => {:media => film.media}}/#{haml :_year_a, :locals => {:year => film.year}}" 
+  = "TD #{haml :_medium_a, :locals => {:medium => film.medium}}/#{haml :_year_a, :locals => {:year => film.year}}" 
 
 
 @@ _film_a_popup
 %a{:href=>"/films/#{film.id}", :class=>"thumbnail"}
   = film.title
   %span
+    %img{:src=>film.thumb_url}
     %div.tagline= film.tagline
-    %img{:src=>"#{film.still_url}"}
 
 
 @@ film
