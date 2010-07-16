@@ -6,8 +6,8 @@ require 'helpers'
 
 
 use Rack::Auth::Basic do |username, password|
-  [username, password] == ['admin', 'admin']
-end
+  [username, password] == ['admin', ENV['SITE_PASSWORD']]
+end if ENV['SITE_PASSWORD']
 
 
 def create_film_resource(res)
