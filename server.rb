@@ -64,7 +64,7 @@ end
 
 
 get '/' do
-  redirect '/countries'
+  redirect '/films/countries'
 end
 
 
