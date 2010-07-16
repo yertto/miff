@@ -1,4 +1,1 @@
-[under construction]
-... possibly split into miff-data and miff-fetcher gems,
-along with a miff and miffatra rails and sinatra servers.
-(just checking some code in for now)
+http://miffatra.heroku.com
