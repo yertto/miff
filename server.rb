@@ -55,7 +55,7 @@ create_get '/films'                    , Film
 create_get '/films/:id'                , Film
 
 # special cases ...
-create_partial :_date_a , '%a(href="/films/sessions/date/#{date}")= date.strftime("%a %b %d %Y")'
+create_partial :_date_a , '%a(href="/films/sessions/date/#{date}")= date.strftime("%a %b %d")'
 
 get '/films/sessions/date/:date' do
   date = Date.parse(params[:date])
@@ -95,7 +95,10 @@ __END__
         %td
           = link_to film.medium
           = film.three_d ? ' (3D)' : ''
-        %td= film.sessions.collect { |session| link_to session }
+        %td
+          %ul
+            - film.sessions.each do |session|
+              %li= "#{link_to session} (#{haml :_date_a, :locals => {:date=>session.date}})"
 
 
 @@ _film_details
