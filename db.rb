@@ -151,11 +151,23 @@ class Session
 end
 
 
+class Year
+  include DataMapper::Resource
+  property :name , Integer , :key => true
+
+  has n, :films
+
+  def to_s
+    "#{name}"
+  end
+end
+
+
 class Film
   include DataMapper::Resource
   property :id               , Serial
-  property :title            , String  , :length => (1..128)
-  property :year             , Integer
+  property :title            , String  , :length => (1..128)  , :required => true
+  #property :year             , Integer
   property :three_d          , Boolean
   property :media            , String  , :length => (0..32)
   property :still_url        , String  , :length => (10..128)
@@ -166,8 +178,9 @@ class Film
   property :distributor_type , String  , :length => (0..8)
   #property :rating      , String
  
-  default_scope(:default).update(:order => [:title, :year])
+  default_scope(:default).update(:order => [:title])
  
+  belongs_to :year               , :required => false
   belongs_to :category           , :required => false
   belongs_to :section            , :required => false
   belongs_to :distributor        , :required => false

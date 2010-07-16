@@ -23,7 +23,7 @@ create_get '/sessions/:id'             , Session
 #                                                  # (it also creates the 'countries' view,
 #                                                  #  and a '_countries_a' partial)
 #
-RESOURCES = [Section, Category, Venue, Country, Language, Subtitle, Distributor, Director, Writer, Producer]
+RESOURCES = [Section, Category, Venue, Country, Year, Language, Subtitle, Distributor, Director, Writer, Producer]
 RESOURCES.each { |res|
   create_film_resource res
 }  

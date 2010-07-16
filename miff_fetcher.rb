@@ -86,7 +86,7 @@ class Film
           film.send((n+'=').to_sym, h.delete(sym).collect { |x| res.first_or_create(:name => x.strip) }) if h[sym]
         }
         # belongs_to associations
-        [Distributor, Subtitle].each { |res|
+        [Distributor, Subtitle, Year].each { |res|
           sym = (n = res.name.downcase).to_sym
           film.send((n+'=').to_sym, res.first_or_create(:name => h.delete(sym).strip)) if h[sym]
         }
