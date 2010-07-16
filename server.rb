@@ -92,7 +92,9 @@ __END__
         %td= film.directors.collect { |director| link_to director }
         %td= film.writers.collect   { |writer|   link_to writer   }
         %td= link_to film.distributor
-        %td= link_to film.medium
+        %td
+          = link_to film.medium
+          = film.three_d ? ' (3D)' : ''
         %td= film.sessions.collect { |session| link_to session }
 
 
@@ -106,7 +108,7 @@ __END__
     = "L #{film.languages.collect { |x| link_to x }.join(', ')} "
   - if film.subtitle
     = "w/#{link_to film.subtitle} subtitles"
-  = "TD #{haml :_medium_a, :locals => {:medium => film.medium}}/#{haml :_year_a, :locals => {:year => film.year}}" 
+  = "TD #{film.three_d ? '3D ' : ''}#{haml :_medium_a, :locals => {:medium => film.medium}}/#{haml :_year_a, :locals => {:year => film.year}}" 
 
 
 @@ _film_a_popup
