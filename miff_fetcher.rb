@@ -20,7 +20,7 @@ module Miff
     i = 0
     xpath_fetch('//td[@class="snippet"]/h3/a', HOST+'/films/browse?grp=all').collect { |a|
       i+=1
-      Film.parse_doc(doc_fetch(HOST+a.attributes['href'].value)) if i < 3
+      Film.parse_doc(doc_fetch(HOST+a.attributes['href'].value)) #if i < 3
       #Film.parse_doc(doc_fetch(HOST+a.attributes['href'].value)) if a.attributes['href'].value == '/films/view?film_id=109640'
     }.compact
   end
