@@ -46,10 +46,10 @@ RESOURCES_ALL = [Film]+RESOURCES
 #
 # NB. matching views need to be created
 # eg.
-#   create_get '/sessions/:id' , Session  # renders a session object to a 'session' view
-#                                         # (it also creates a 'session' view, and a '_session_a' partial)
-#   create_get '/sessions'     , Session  # renders all session objects to a 'sessions' view
-#                                         # (it also creates the 'sessions' view, and a '_sessions_a' partial)
+#   create_get '/films/:id' , Film  # renders a film object to a 'film' view
+#                                   # (it also creates a 'film' view, and a '_film_a' partial)
+#   create_get '/films'     , Film  # renders all film objects to a 'films' view
+#                                   # (it also creates the 'films' view, and a '_films_a' partial)
 #
 create_get '/films'                    , Film
 create_get '/films/:id'                , Film
@@ -172,16 +172,15 @@ __END__
 
 
 @@ session
-%h2= "<a href='/films'>Films</a>: #{haml :_sessions_a} : #{session.id}"
+%h2= "#{haml :_films_a} : #{haml :_sessions_a} : #{session.id}"
 %div.list= haml :_sessions_table, :locals => { :sessions => [session] }
 
 
 @@ sessions
 %h2
+  = "#{haml :_films_a} : #{haml :_sessions_a}"
   - if locals.has_key? :date
-    = "<a href='/films'>Films</a>: #{haml :_sessions_a}: #{haml :_date_a, :locals => {:date => date}}"
-  - else
-    = "<a href='/films'>Films</a>: #{haml :_sessions_a}"
+    = ": #{haml :_date_a, :locals => {:date => date}}"
 %div.list= haml :_sessions_table, :locals => { :sessions => sessions }
   
 
@@ -193,7 +192,7 @@ __END__
         - RESOURCES_ALL.each do |res|
           %li
             - name = res.storage_name
-            - url = ['films', 'sessions'].include?(name) ? "/#{name}" : "/films/#{name}"
+            - url = ['films'].include?(name) ? "/#{name}" : "/films/#{name}"
             %a{:href=>url, :class=>current_section(url)}= name.capitalize
 
 
