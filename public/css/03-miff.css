@@ -1,0 +1,221 @@
+/* @override http://0.0.0.0:3000/stylesheets/02-miff.css?1276342892 */
+
+body { background-color: #424242; color: #fefffe;
+	font: 12pt/140% Georgia, "Times New Roman", Times, serif;
+	letter-spacing: 0.8pt;
+}
+
+.wrapper {
+	padding-right: 10%;
+	padding-left: 10%;
+	width: 80%;
+	float: left;
+	clear: both;
+}
+
+/* @group general tags */
+
+h1 {
+	font-size: 140%;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	letter-spacing: 0.15em;
+	font-weight: normal;
+	font-style: normal;
+}
+
+h2 {
+	font-size: 120%;
+	margin-top: 1em;
+	font-weight: normal;
+	font-style: normal;
+	margin-bottom: 0.4em;
+}
+
+/* @group a */
+
+a { color: #68e4ff;
+	text-decoration: none;
+}
+a:visited { color: #a4eaff; }
+a:hover { color: #ff9654; }
+
+/* @end */
+
+
+
+/* @end */
+
+/* @group forms */
+
+div.field, div.actions {
+  margin-bottom: 10px;
+}
+
+
+
+/* @end */
+
+/* @group header */
+
+header {
+	clear: both;
+	display: block;
+	float: left;
+	background-color: #202020;
+	width: 100%;
+	padding-top: 1em;
+	font-size: 120%;
+}
+
+header a {
+	display: block;
+	padding: .6em 1em .4em;
+}
+
+header a:hover {
+	background-color: rgba(54,54,54,0.5);
+}
+
+header a#signup {
+	float: right;
+}
+
+/* @group nav */
+
+nav li {
+	display: inline;
+}
+
+nav {
+	margin-left: -1em;
+}
+
+nav li a {
+	display: block;
+	float: left;
+	margin-right: 0;
+}
+
+nav li a.current {
+	background-color: #363636;
+	color: #fff;
+}
+
+/* @end */
+
+
+
+/* @end */
+
+/* @group flash */
+
+.flash {
+	right: 0;
+	left: 0;
+	display: block;
+	float: left;
+	width: 100%;
+}
+
+.notice {
+	background: url(/images/icons/ok.png) no-repeat 0 center;
+	padding-left: 25px;
+	margin-left: -25px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.warning {
+	background: url(/images/icons/warning.png) no-repeat 0 center;
+	padding-left: 25px;
+	margin-left: -25px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	color: #ff403c;
+	font-weight: bold;
+}
+
+/* @end */
+
+#main {
+	float: left;
+	clear: both;
+	width: 100%;
+	background-color: #363636;
+	padding-top: 1em;
+	padding-bottom: 1em;
+	-webkit-box-shadow: 0px 10px 40px rgba(0,0,0,0.4);
+} 
+
+footer {
+	float: left;
+	clear: both;
+	width: 100%;
+	border-top: 0.5em solid #3c3c3c;
+	padding-top: 1em;
+	padding-bottom: 2em;
+	color: rgba(145,145,145,0.5);
+}
+
+.right {
+	float: right;
+	display: block;
+}
+
+/* @group table */
+
+table.list {
+	width: 100%;
+}
+
+.list th {
+	border-bottom: 2px solid #3c3c3c;
+	text-align: left;
+	padding: 0.4em;
+}
+
+.list td {
+	text-align: left;
+	padding: 0.4em;
+}
+
+.list .alt {
+	background-color: rgba(66,66,66,0.25);
+}
+
+
+
+/* @end */
+
+/* @group article */
+
+article .section {
+	margin-bottom: 1em;
+	clear: both;
+}
+
+article .tagline {
+	font-style: italic;
+	clear: both;
+}
+
+article .col1 {
+	width: 35%;
+	margin-right: 5%;
+	float: left;
+}
+
+article .col2 {
+	width: 55%;
+	margin-right: 5%;
+	float: left;
+}
+
+
+
+/* @end */
+
+.today {
+	background-color: rgba(255,161,0,0.5);
+}

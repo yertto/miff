@@ -21,8 +21,7 @@ end
 
 class Subtitle
   include DataMapper::Resource
-  property :id      , Serial
-  property :name    , String#        , :key => true
+  property :name    , String  , :key => true
 
   has n, :films
 
@@ -163,13 +162,24 @@ class Year
 end
 
 
+class Media
+  include DataMapper::Resource
+  property :name , String  , :length => (0..32) , :key => true
+
+  has n, :films
+
+  def to_s
+    "#{name}"
+  end
+end
+
+
 class Film
   include DataMapper::Resource
   property :id               , Serial
   property :title            , String  , :length => (1..128)  , :required => true
   #property :year             , Integer
   property :three_d          , Boolean
-  property :media            , String  , :length => (0..32)
   property :still_url        , String  , :length => (10..128)
   property :trailer_url      , String  , :length => (10..128)
   property :tagline          , Text    , :length => (0..512)
@@ -181,6 +191,7 @@ class Film
   default_scope(:default).update(:order => [:title])
  
   belongs_to :year               , :required => false
+  belongs_to :media              , :required => false
   belongs_to :category           , :required => false
   belongs_to :section            , :required => false
   belongs_to :distributor        , :required => false

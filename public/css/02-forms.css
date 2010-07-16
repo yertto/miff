@@ -1,0 +1,85 @@
+/* @override 
+	http://0.0.0.0:3000/stylesheets/02-forms.css?1276078611
+	http://0.0.0.0:3000/stylesheets/02-forms.css?1276345945
+*/
+
+form li {
+	margin-bottom: 10px;
+	display: block;
+	clear: both;
+}
+
+label {
+	font-weight: bold;
+	display: block;
+	margin-bottom: 5px;
+	clear: both;
+}
+
+#error_explanation {
+	background-color: #c80000;
+	padding: 1em;
+	margin-bottom: 2em;
+	margin-left: -1em;
+	margin-right: -1em;
+}
+
+#error_explanation h2 {
+	margin-top: 0;
+}
+
+#errorExplanation ul li {
+	list-style-type: disc;
+	display: list-item;
+	list-style-position: inside;
+	margin-bottom: 0;
+}
+
+p.inline-hints {
+	color: #515151;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+legend {
+	padding-bottom: 20px;
+	font-size: 14pt;
+}
+
+.field_with_errors input, .field_with_errors textarea, .fieldWithErrors select {
+	background-color: #c80000;
+	border-style: none;
+}
+
+fieldset.submit_buttons {
+	clear: both;
+	display: block;
+	padding-top: 10px;
+}
+
+input {
+	padding: 1em;
+	font-size: 100%;
+}
+
+/* @group submit */
+
+input.send {
+	font-weight: bold;
+	border-style: none;
+	font-size: 14pt;
+	background: rgba(235,235,235,0.2) url(/images/icons/save.png) no-repeat 10px center;
+	padding: 10px 10px 10px 25px;
+	cursor: pointer;
+	
+}
+
+input.send:hover {
+	color: #00a0c2;
+}
+
+input.save {
+	background: url(/images/icons/save.png) no-repeat 0 center;
+}
+
+/* @end */

@@ -31,8 +31,7 @@ module Miff
         item = Country.first_or_create(:name => name)
         item.films = xpath_fetch('//h3/a[contains(@href, "/films/view?film_id=")]',
           HOST+node.attributes['href'].value
-        ).collect { |a| Film.parse_anchor(a)
-        }
+        ).collect { |a| Film.parse_anchor(a) }
         raise "Invalid country: #{item.inspect}" unless item.valid?
         item.save
         item
@@ -50,8 +49,7 @@ module Miff
         item = Section.first_or_create(:name => node.text.strip)
         item.films = xpath_fetch('//h3/a[contains(@href, "/films/view?film_id=")]',
           HOST+node.attributes['href'].value
-        ).collect { |a| Film.parse_anchor(a)
-        }
+        ).collect { |a| Film.parse_anchor(a) }
         raise "Invalid section: #{item.inspect}" unless item.valid?
         item.save
         item
@@ -86,7 +84,7 @@ class Film
           film.send((n+'=').to_sym, h.delete(sym).collect { |x| res.first_or_create(:name => x.strip) }) if h[sym]
         }
         # belongs_to associations
-        [Distributor, Subtitle, Year].each { |res|
+        [Distributor, Subtitle, Year, Media].each { |res|
           sym = (n = res.name.downcase).to_sym
           film.send((n+'=').to_sym, res.first_or_create(:name => h.delete(sym).strip)) if h[sym]
         }
@@ -112,15 +110,20 @@ class Film
         synopsis = synopsis.to_s.split(tagline.to_s)[1]
         film.synopsis = synopsis.strip if synopsis
       end
+
       #_film = doc.xpath('//tr/td[@valign="top"]/strong/a[contains(@href, "/films/view?film_id=")]').first
       #film.duration = _film.parent.next.text[3..-6].to_i if _film
+
+      raise "Invalid film: #{film.inspect}" unless film.valid?
+      film.save  # XXX need to save film before finding it again when parsing the sessions....
+
       film.sessions = doc.xpath('//tr/td[@class="session_code"]').collect { |session_code_node|
         #h = parse_session_node(session_code_node.parent)
         #Session.first_or_create({:id => h[:id]}, h)
         Session.parse_row(session_code_node.parent)
       }
-      raise "Invalid film: #{film.inspect}" unless film.valid?
-      film.save
+      film.save          # XXX - and save again ?
+
       film
     end
   end
@@ -165,6 +168,7 @@ class Session
     result.films = row.xpath('td/strong/a[contains(@href, "/films/view?film_id=")]').collect { |a|
       film = Film.parse_anchor(a)
       film.duration = a.parent.next.text[3..-6].to_i
+      film.save   # XXX - doing too much saving ?
       film
     }
     result
