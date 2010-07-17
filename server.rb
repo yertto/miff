@@ -128,7 +128,7 @@ __END__
   %div.col1
     %div.year
       %h2 Year
-      = film.year
+      = haml :_year_a, :locals => {:year => film.year}
     %div(class="countries section")
       %h2 Countries
       %span.countries= film.countries.collect { |x| link_to x }.join('| ')
@@ -155,17 +155,22 @@ __END__
 %table.sessionTable
   %thead
     %tr
-      - %w(Code Films Date Time Venue).each do |th|
+      - %w(Code Films Date Time).each do |th|
         %th.heading(valign="top")= th
   %tbody
     %tr
-    - sessions.each do |session|
+    - venue_sessions = sessions.inject({}) { |h, session| h[session.venue] = h[session.venue] ? h[session.venue] << session :[session] ; h }
+    - venues = venue_sessions.keys.sort
+    - venues.each do |venue|
+      - sessions = venue_sessions[venue]
       %tr
-        %td.session_code= link_to(session)
-        %td= session.films.collect { |film| "#{haml :_film_a_popup, :locals => {:film => film}} (#{film.duration} mins) <br/>" }
-        %td.session_day= haml :_date_a, :locals => { :date => Date.parse(session.time.strftime('%Y/%m/%d')) }
-        %td.session_time= session.time.strftime("%l.%M%P")
-        %td.session_venue= link_to(session.venue)
+        %th{:class=>'session_venue', :colspan=>4}= link_to(venue)
+      - sessions.each do |session|
+        %tr
+          %td.session_code= link_to(session)
+          %td= session.films.collect { |film| "#{haml :_film_a_popup, :locals => {:film => film}} (#{film.duration} mins) <br/>" }
+          %td.session_day= haml :_date_a, :locals => { :date => Date.parse(session.time.strftime('%Y/%m/%d')) }
+          %td.session_time= session.time.strftime("%l.%M%P")
 
 
 
@@ -206,15 +211,16 @@ __END__
       %option{:value=>path, :selected=>(request.path.scan(path).size > 0)}= name.capitalize
   = "/"
   %select{:name=>'films_grandchild', :onChange=>"location=document.jump.films_grandchild.options[document.jump.films_grandchild.selectedIndex].value;", :value=>"GO"}
-    - child_path, child, grandchild = /(?:(\/films\/(.*?))(?:(?:\/)(.*))?$)/.match(request.path).captures
-    %option{:value=>child_path, :selected=>(request.path.scan(child_path).size > 0)}
-    - res = RESOURCES.detect { |res| res.storage_name == child }
-    - if res
-      - if res == Session
-        %option{:value=>child_path, :selected=>(request.path.scan(child_path).size > 0)} Dates
-      - res.all.each do |item|
-        - path = "#{child_path}/#{URI.escape(item.to_s)}"
-        %option{:value=>path, :selected=>(request.path == path)}= item
+    - if m = /(?:(\/films\/(.*?))(?:(?:\/)(.*))?$)/.match(request.path)
+      - child_path, child, grandchild = m.captures
+      %option{:value=>child_path, :selected=>(request.path.scan(child_path).size > 0)}
+      - res = RESOURCES.detect { |res| res.storage_name == child }
+      - if res
+        - if res == Session
+          %option{:value=>child_path, :selected=>(request.path.scan(child_path).size > 0)} Dates
+        - res.all.each do |item|
+          - path = "#{child_path}/#{URI.escape(item.to_s)}"
+          %option{:value=>path, :selected=>(request.path == path)}= item
   - if (res == Session) and (grandchild.scan('dates').size > 0)
     = "/"
     %select{:name=>'films_greatgrandchild', :onChange=>"location=document.jump.films_greatgrandchild.options[document.jump.films_greatgrandchild.selectedIndex].value;", :value=>"GO"}
