@@ -20,7 +20,6 @@ def create_film_resource(res)
 
   unless names == "sessions"
     template names.to_sym, &lambda { """
-%h2= \"<a href='/films'>Films</a>: \#{haml :_#{names}_a}\"
 %table.list
   - #{names}.each do |x|
     %tr
@@ -28,7 +27,6 @@ def create_film_resource(res)
       %td= link_to x"""
     }
     template name.to_sym, &lambda { """
-%h2= \"<a href='/films'>Films</a>: \#{haml :_#{names}_a}: \#{#{name}}\"
 %div.list= haml :_film_table, :locals => { :films => #{name}.films }"""
     }
   end
@@ -55,9 +53,9 @@ create_get '/films'                    , Film
 create_get '/films/:id'                , Film
 
 # special cases ...
-create_partial :_date_a , '%a(href="/films/sessions/date/#{date}")= date.strftime("%a %b %d")'
+create_partial :_date_a , '%a(href="/films/sessions/dates/#{date}")= date.strftime("%a %b %d")'
 
-get '/films/sessions/date/:date' do
+get '/films/sessions/dates/:date' do
   date = Date.parse(params[:date])
   haml :sessions, :locals => { :date => date, :sessions => Session.all(:date => date) }
 end
@@ -150,11 +148,6 @@ __END__
 
 
 @@ films
-%h2
-  - if locals.has_key? :title
-    = "<a href='/films'>Films</a> : #{title} (<a href='/#{title_type}'>all #{title_type}</a>)"
-  - else
-    Films
 %div.list= haml :_film_table, :locals => { :films => films }
 
 
@@ -177,15 +170,10 @@ __END__
 
 
 @@ session
-%h2= "#{haml :_films_a} : #{haml :_sessions_a} : #{session.id}"
 %div.list= haml :_sessions_table, :locals => { :sessions => [session] }
 
 
 @@ sessions
-%h2
-  = "#{haml :_films_a} : #{haml :_sessions_a}"
-  - if locals.has_key? :date
-    = ": #{haml :_date_a, :locals => {:date => date}}"
 %div.list= haml :_sessions_table, :locals => { :sessions => sessions }
   
 
@@ -201,6 +189,41 @@ __END__
             %a{:href=>url, :class=>current_section(url)}= name.capitalize
 
 
+@@ _breadcrumb
+%form{:name=>'jump'}
+  %select{:name=>'films', :onChange=>"location=document.jump.films.options[document.jump.films.selectedIndex].value;", :value=>"GO"}
+    %option{:value=>'/films'} Films
+  = "/"
+  %select{:name=>'films_child', :onChange=>"location=document.jump.films_child.options[document.jump.films_child.selectedIndex].value;", :value=>"GO"}
+    %option{:value=>'/films', :selected=>(request.path == '/films')}
+    - RESOURCES.each do |res|
+      - name = res.storage_name
+      - path = "/films/#{name}"
+      %option{:value=>path, :selected=>(request.path.scan(path).size > 0)}= name.capitalize
+  = "/"
+  %select{:name=>'films_grandchild', :onChange=>"location=document.jump.films_grandchild.options[document.jump.films_grandchild.selectedIndex].value;", :value=>"GO"}
+    - child_path, child, grandchild = /(?:(\/films\/(.*?))(?:(?:\/)(.*))?$)/.match(request.path).captures
+    %option{:value=>child_path, :selected=>(request.path.scan(child_path).size > 0)}
+    - res = RESOURCES.detect { |res| res.storage_name == child }
+    - if res
+      - if res == Session
+        %option{:value=>child_path, :selected=>(request.path.scan(child_path).size > 0)} Dates
+      - res.all.each do |item|
+        - path = "#{child_path}/#{URI.escape(item.to_s)}"
+        %option{:value=>path, :selected=>(request.path == path)}= item
+  - if (res == Session) and (grandchild.scan('dates').size > 0)
+    = "/"
+    %select{:name=>'films_greatgrandchild', :onChange=>"location=document.jump.films_greatgrandchild.options[document.jump.films_greatgrandchild.selectedIndex].value;", :value=>"GO"}
+      - grandchild, greatgrandchild = grandchild.split('/')
+      - grandchild_path = "#{child_path}/#{grandchild}"
+      %option{:value=>child_path, :selected=>(request.path == grandchild_path)}
+      - dates = repository(:default).adapter.select('SELECT DISTINCT date FROM sessions')
+      - dates.each do |item|
+        - path = "#{grandchild_path}/#{URI.escape(item.to_s)}"
+        %option{:value=>path, :selected=>(request.path == path)}= Date.parse(item).strftime('%a %b %d')
+      
+
+
 @@ layout
 %html
   %head
@@ -211,10 +234,13 @@ __END__
     %link{:rel => 'stylesheet', :type => 'text/css', :href => '/css/03-miff.css'  , :media => 'screen projection'}
     %link{:rel => 'stylesheet', :type => 'text/css', :href => '/css/04-popup.css' , :media => 'screen projection'}
   %body
-    = haml :_header
-    %div.main
-      %div.wrapper
-        = yield
+    /= haml :_header
+    /%div.main
+    /  %div.wrapper
+    /    = haml :_breadcrumb
+    /    = yield
+    = haml :_breadcrumb
+    = yield
     %footer
       %div.wrapper
         %p MIFF underground
