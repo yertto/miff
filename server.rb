@@ -230,7 +230,7 @@ __END__
       - dates = repository(:default).adapter.select('SELECT DISTINCT date FROM sessions')
       - dates.each do |item|
         - path = "#{grandchild_path}/#{URI.escape(item.to_s)}"
-        %option{:value=>path, :selected=>(request.path == path)}= Date.parse(item).strftime('%a %b %d')
+        %option{:value=>path, :selected=>(request.path == path)}= date
       
 
 
