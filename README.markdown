@@ -1,3 +1,19 @@
+# The MIFF challenge:
+
+[http://www.melbournefilmfestival.com.au](http://www.melbournefilmfestival.com.au)
+                |
+                V
+    [http://github.com/yertto/miff](http://github.com/yertto/miff)
+                |
+                V
+    * [http://miffatra.heroku.com](http://miffatra.heroku.com)
+    * ?????
+    * ?????
+    * ?????
+  
+The challenge is out there, but you'd better get to it
+as MIFF runs from Thu 22nd July - Sat 7th July, 2010
+
 ## Create your own MIFF app
 
     git clone http://github.com/yertto/miff.git
