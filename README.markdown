@@ -10,6 +10,7 @@
                 |
                 V
  * [http://miffatra.heroku.com](http://miffatra.heroku.com)
+ * [http://miffatra-yertto1.heroku.com](http://miffatra-yertto1.heroku.com)
  * [...](http://wiki.github.com/yertto/miff/)
  * ...
   
