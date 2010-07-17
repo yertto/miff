@@ -14,10 +14,12 @@
     sudo gem install heroku
     heroku keys:add
 
-Enter your Heroku credentials.
-Email: joe@example.com
-Password: 
-Uploading ssh public key /Users/joe/.ssh/id_rsa.pub
+(see http://docs.heroku.com/heroku-command#installation )
+
+    Enter your Heroku credentials.
+    Email: joe@example.com
+    Password: 
+    Uploading ssh public key /Users/joe/.ssh/id_rsa.pub
 
     heroku create miff-joe
     git push heroku master
