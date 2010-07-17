@@ -10,7 +10,7 @@
                 |
                 V
  * [http://miffatra.heroku.com](http://miffatra.heroku.com)
- * ...
+ * [...](http://wiki.github.com/yertto/miff/)
  * ...
   
 The challenge is out there, but you'd better get to it
