@@ -61,3 +61,6 @@ install [heroku](http://docs.heroku.com/heroku-command#installation):
     heroku db:push sqlite://devel.db
 
 add a link to your app on the [wiki](http://wiki.github.com/yertto/miff/)
+
+## Acknowledgements
+* [Dougal MacPherson](http://github.com/dougalmacpherson)
