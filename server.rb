@@ -210,9 +210,9 @@ __END__
       - path = "/films/#{name}"
       %option{:value=>path, :selected=>(request.path.scan(path).size > 0)}= name.capitalize
   = "/"
-  %select{:name=>'films_grandchild', :onChange=>"location=document.jump.films_grandchild.options[document.jump.films_grandchild.selectedIndex].value;", :value=>"GO"}
-    - if m = /(?:(\/films\/(.*?))(?:(?:\/)(.*))?$)/.match(request.path)
-      - child_path, child, grandchild = m.captures
+  - if m = /(?:(\/films\/(.*?))(?:(?:\/)(.*))?$)/.match(request.path)
+    - child_path, child, grandchild = m.captures
+    %select{:name=>'films_grandchild', :onChange=>"location=document.jump.films_grandchild.options[document.jump.films_grandchild.selectedIndex].value;", :value=>"GO"}
       %option{:value=>child_path, :selected=>(request.path.scan(child_path).size > 0)}
       - res = RESOURCES.detect { |res| res.storage_name == child }
       - if res
@@ -221,17 +221,17 @@ __END__
         - res.all.each do |item|
           - path = "#{child_path}/#{URI.escape(item.to_s)}"
           %option{:value=>path, :selected=>(request.path == path)}= item
-  - if (res == Session) and (grandchild.scan('dates').size > 0)
-    = "/"
-    %select{:name=>'films_greatgrandchild', :onChange=>"location=document.jump.films_greatgrandchild.options[document.jump.films_greatgrandchild.selectedIndex].value;", :value=>"GO"}
-      - grandchild, greatgrandchild = grandchild.split('/')
-      - grandchild_path = "#{child_path}/#{grandchild}"
-      %option{:value=>child_path, :selected=>(request.path == grandchild_path)}
-      - dates = repository(:default).adapter.select('SELECT DISTINCT date FROM sessions')
-      - dates.each do |item|
-        - path = "#{grandchild_path}/#{URI.escape(item.to_s)}"
-        - date = item.is_a?(String) ? Date.parse(item).strftime('%a %b %d') : item
-        %option{:value=>path, :selected=>(request.path == path)}= date.strftime('%a %b %d')
+    - if (res == Session) and grandchild and (grandchild.scan('dates').size > 0)
+      = "/"
+      %select{:name=>'films_greatgrandchild', :onChange=>"location=document.jump.films_greatgrandchild.options[document.jump.films_greatgrandchild.selectedIndex].value;", :value=>"GO"}
+        - grandchild, greatgrandchild = grandchild.split('/')
+        - grandchild_path = "#{child_path}/#{grandchild}"
+        %option{:value=>child_path, :selected=>(request.path == grandchild_path)}
+        - dates = repository(:default).adapter.select('SELECT DISTINCT date FROM sessions')
+        - dates.each do |item|
+          - path = "#{grandchild_path}/#{URI.escape(item.to_s)}"
+          - date = item.is_a?(String) ? Date.parse(item) : item
+          %option{:value=>path, :selected=>(request.path == path)}= date.strftime('%a %b %d')
       
 
 
