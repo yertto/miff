@@ -1,6 +1,6 @@
 # The MIFF challenge:
 
-[Melbourne International Film Festival](http://www.melbournefilmfestival.com.au) ([scraped](http://nokogiri.org) and remixed into a [datamapper](http://datamapper.org)/[sinatra](http://www.sinatrarb.com) app)
+[Melbourne International Film Festival](http://www.melbournefilmfestival.com.au) ([scraped](http://nokogiri.org) and remixed into a [datamapper](http://datamapper.org/docs)/[haml](http://haml-lang.com/tutorial.html)/[sinatra](http://www.sinatrarb.com/intro.html) app)
 
 
 [http://www.melbournefilmfestival.com.au](http://www.melbournefilmfestival.com.au)
@@ -25,11 +25,11 @@ install required gems using [bundle](http://gembundler.com/bundle_install.html):
 
     bundle install --without production
 
-fetch the data:
+[scrape]((http://nokogiri.org) and [store](http://datamapper.org/docs) the data:
 
     ./miff_fetcher.rb
 
-start your app:
+start your [sinatra](http://www.sinatrarb.com/intro.html) app:
 
     ./server.rb
 
