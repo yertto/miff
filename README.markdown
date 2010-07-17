@@ -10,12 +10,11 @@
                 |
                 V
  * [http://miffatra.heroku.com](http://miffatra.heroku.com)
- * ?????
- * ?????
- * ?????
+ * ...
+ * ...
   
 The challenge is out there, but you'd better get to it
-as MIFF runs from Thu 22nd July - Sat 7th July, 2010
+as MIFF is running from Thu 22nd July - Sat 7th July, 2010
 
 ## Create your own MIFF app
 
