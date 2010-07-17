@@ -13,7 +13,9 @@
  * [...](http://wiki.github.com/yertto/miff/)
  * ...
   
-The challenge is out there, but you'd better get to it
+It'd be interesting to see what else could be done with the MIFF data.
+
+So this challenge is out there, but you'd better get to it
 as MIFF is running from Thu 22nd July - Sat 7th July, 2010
 
 ## Create your own MIFF app
