@@ -31,6 +31,10 @@ module Details
            "D Sara Ziff TD 2009"
       when "D Gustavo Hern&aacute;ndez P Gustavo Rojo S Oscar Est&eacute;vez Dist Madman  Entertainment L Spanish w/English subtitles TD digibeta/2010"
            "D Gustavo Hern&aacute;ndez P Gustavo Rojo S Oscar Est&eacute;vez Dist Madman Entertainment L Spanish w/English subtitles TD digibeta/2010"
+      when "D/S Sylvain Chomet, based on original script by Jacques Tati P Bob Last, Sally Chomet,  Dist Madman Entertainment L No dialogue TD 35mm/2010"
+           "D/S Sylvain Chomet, based on original script by Jacques Tati P Bob Last, Sally Chomet,  Dist Madman Entertainment L no dialogue TD 35mm/2010"
+      when "D/S Bruce LaBruce P Arno Rok, J&#252;rgen Br&#252;ning, Robert Felt, Damian Todaro, Bruce LaBruce, Maciek Dziekiewicz WS Wurstfilm GmbH L No dialogue TD digibeta/2010"
+           "D/S Bruce LaBruce P Arno Rok, J&#252;rgen Br&#252;ning, Robert Felt, Damian Todaro, Bruce LaBruce, Maciek Dziekiewicz WS Wurstfilm GmbH L no dialogue TD digibeta/2010"
     else
       details
     end
