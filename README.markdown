@@ -1,6 +1,6 @@
 # The MIFF challenge:
 
-[Melbourne International Film Festival](http://www.melbournefilmfestival.com.au) (scraped and remixed into a [datamapper](http://datamapper.org)/[sinatra](http://www.sinatrarb.com) app)
+[Melbourne International Film Festival](http://www.melbournefilmfestival.com.au) ([scraped](http://nokogiri.org) and remixed into a [datamapper](http://datamapper.org)/[sinatra](http://www.sinatrarb.com) app)
 
 
 [http://www.melbournefilmfestival.com.au](http://www.melbournefilmfestival.com.au)
