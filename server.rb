@@ -193,6 +193,10 @@ __END__
 %form{:name=>'jump'}
   %select{:name=>'films', :onChange=>"location=document.jump.films.options[document.jump.films.selectedIndex].value;", :value=>"GO"}
     %option{:value=>'/films'} Films
+    - Film.all.each do |film|
+      - path = "/films/#{film.id}"
+      - t = film.title
+      %option{:value=>path, :selected=>(request.path == path)}= t.size > 20 ? "#{t[0..15]}...#{t[-4..-1]}" : t
   = "/"
   %select{:name=>'films_child', :onChange=>"location=document.jump.films_child.options[document.jump.films_child.selectedIndex].value;", :value=>"GO"}
     %option{:value=>'/films', :selected=>(request.path == '/films')}
