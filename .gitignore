@@ -1,4 +1,3 @@
-.gitignore
 .cache*
 .db
 .*.sw?
