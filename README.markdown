@@ -19,6 +19,7 @@ It'd be interesting to see what else could be done with the MIFF data.
 So this challenge is out there, but you'd better get to it
 as MIFF is running from Thu 22nd July - Sat 7th July, 2010
 
+
 ## Create your own MIFF app
 
     git clone http://github.com/yertto/miff.git
@@ -28,7 +29,7 @@ install required gems using [bundle](http://gembundler.com/bundle_install.html):
 
     bundle install --without production
 
-[scrape]((http://nokogiri.org) and [store](http://datamapper.org/docs) the data:
+[scrape](http://nokogiri.org) and [store](http://datamapper.org/docs) the data:
 
     ./miff_fetcher.rb
 
@@ -62,5 +63,17 @@ install [heroku](http://docs.heroku.com/heroku-command#installation):
 
 add a link to your app on the [wiki](http://wiki.github.com/yertto/miff/)
 
+
+## Technical details
+
+* First miff_fetcher.rb scrapes the data using [nokogiri](http://nokogiri.org) and
+  stores it using [datamapper](http://datamapper.org/docs).
+* Then server.rb serves the data using [sinatra](http://www.sinatrarb.com/intro.html), which
+  renders it using [haml](http://haml-lang.com/tutorial.html) templates which it
+  (mostly) generates at startup.  (NB. this means the entire website can be generated from
+  very few lines of code)
+
+
 ## Acknowledgements
+
 * [Dougal MacPherson](http://github.com/dougalmacpherson)
