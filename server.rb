@@ -10,6 +10,16 @@ use Rack::Auth::Basic do |username, password|
 end if ENV['SITE_PASSWORD']
 
 
+MY_VERSION = File.open(File.dirname(__FILE__) + "/VERSION").read.strip
+
+RESOURCES = [Session, Section, Category, Venue, Country, Year, Medium, Language, Subtitle, Distributor, Director, Writer, Producer]
+RESOURCES_ALL = [Film]+RESOURCES
+
+def get_res(item)
+  RESOURCES_ALL.detect { |res| res.storage_name == item }
+end
+
+
 def create_film_resource(res)
   # helper method to creat
   names = res.storage_name
@@ -32,12 +42,10 @@ def create_film_resource(res)
   end
 end
 
-# Use the above helper to create views and routes for the following resources.
-RESOURCES = [Session, Section, Category, Venue, Country, Year, Medium, Language, Subtitle, Distributor, Director, Writer, Producer]
+# Create views and routes for the following resources.
 RESOURCES.each { |res|
   create_film_resource res
 }  
-RESOURCES_ALL = [Film]+RESOURCES
 
 
 # Create get routes and their rendering code based on a resource and the route...
@@ -182,57 +190,59 @@ __END__
 %div.list= haml :_sessions_table, :locals => { :sessions => sessions }
   
 
-@@ _header
-%header
-  %div.wrapper
-    %nav
-      %ul
-        - RESOURCES_ALL.each do |res|
-          %li
-            - name = res.storage_name
-            - url = ['films'].include?(name) ? "/#{name}" : "/films/#{name}"
-            %a{:href=>url, :class=>current_section(url)}= name.capitalize
-
-
 @@ _breadcrumb
+- path_items = request.path.split('/')
 %form{:name=>'jump'}
-  %select{:name=>'films', :onChange=>"location=document.jump.films.options[document.jump.films.selectedIndex].value;", :value=>"GO"}
-    %option{:value=>'/films'} Films
-    - Film.all.each do |film|
-      - path = "/films/#{film.id}"
-      - t = film.title
-      %option{:value=>path, :selected=>(request.path == path)}= t.size > 20 ? "#{t[0..15]}...#{t[-4..-1]}" : t
+  %select{:name=>'path_items1', :onChange=>"location=document.jump.path_items1.options[document.jump.path_items1.selectedIndex].value;", :value=>"GO"}
+    %option{:value=>"/#{path_items[1]}"}= path_items[1].capitalize
+    - get_res(path_items[1]).all.each do |item|
+      - path = "/#{path_items[1]}/#{item.id}"
+      - v = item.to_s
+      %option{:value=>path, :selected=>(request.path == path)}= v.size > 20 ? "#{v[0..15]}...#{v[-4..-1]}" : v
   = "/"
-  %select{:name=>'films_child', :onChange=>"location=document.jump.films_child.options[document.jump.films_child.selectedIndex].value;", :value=>"GO"}
-    %option{:value=>'/films', :selected=>(request.path == '/films')}
+  %select{:name=>'path_items2', :onChange=>"location=document.jump.path_items2.options[document.jump.path_items2.selectedIndex].value;", :value=>"GO"}
+    %option{:value=>"/#{path_items[1]}", :selected=>(request.path == "/#{path_items[1]}")}
     - RESOURCES.each do |res|
       - name = res.storage_name
-      - path = "/films/#{name}"
+      - path = "/#{path_items[1]}/#{name}"
       %option{:value=>path, :selected=>(request.path.scan(path).size > 0)}= name.capitalize
-  = "/"
-  - if m = /(?:(\/films\/(.*?))(?:(?:\/)(.*))?$)/.match(request.path)
-    - child_path, child, grandchild = m.captures
-    %select{:name=>'films_grandchild', :onChange=>"location=document.jump.films_grandchild.options[document.jump.films_grandchild.selectedIndex].value;", :value=>"GO"}
+  - if path_items.size > 2
+    %select{:name=>'path_items3', :onChange=>"location=document.jump.path_items3.options[document.jump.path_items3.selectedIndex].value;", :value=>"GO"}
+      - child_path = path_items[0..2].join('/')
       %option{:value=>child_path, :selected=>(request.path.scan(child_path).size > 0)}
-      - res = RESOURCES.detect { |res| res.storage_name == child }
+      - res = get_res(path_items[2])
       - if res
         - if res == Session
           %option{:value=>child_path, :selected=>(request.path.scan(child_path).size > 0)} Dates
         - res.all.each do |item|
           - path = "#{child_path}/#{URI.escape(item.to_s)}"
           %option{:value=>path, :selected=>(request.path == path)}= item
-    - if (res == Session) and grandchild and (grandchild.scan('dates').size > 0)
+    - if (res == Session) and path_items.size > 4 and (path_items[3] == 'dates')
       = "/"
-      %select{:name=>'films_greatgrandchild', :onChange=>"location=document.jump.films_greatgrandchild.options[document.jump.films_greatgrandchild.selectedIndex].value;", :value=>"GO"}
-        - grandchild, greatgrandchild = grandchild.split('/')
-        - grandchild_path = "#{child_path}/#{grandchild}"
+      %select{:name=>'path_item4', :onChange=>"location=document.jump.path_item4.options[document.jump.path_item4.selectedIndex].value;", :value=>"GO"}
+        - grandchild_path = path_items[0..3].join('/')
         %option{:value=>child_path, :selected=>(request.path == grandchild_path)}
         - dates = repository(:default).adapter.select('SELECT DISTINCT date FROM sessions')
         - dates.each do |item|
           - path = "#{grandchild_path}/#{URI.escape(item.to_s)}"
           - date = item.is_a?(String) ? Date.parse(item) : item
           %option{:value=>path, :selected=>(request.path == path)}= date.strftime('%a %b %d')
-      
+
+
+@@ _header
+= haml :_breadcrumb
+
+
+@@ _footer
+%footer
+  %div.wrapper
+    %p
+      Powered by
+      %a{:href=>"http://github.com/yertto/miff/blob/v#{MY_VERSION}/server.rb"} this code
+      , hosted by
+      %a{:href=>"http://heroku.com"} heroku
+      , supported by
+      %a{:href=>"http://newfangled.com.au"} newfangled
 
 
 @@ layout
@@ -245,14 +255,6 @@ __END__
     %link{:rel => 'stylesheet', :type => 'text/css', :href => '/css/03-miff.css'  , :media => 'screen projection'}
     %link{:rel => 'stylesheet', :type => 'text/css', :href => '/css/04-popup.css' , :media => 'screen projection'}
   %body
-    /= haml :_header
-    /%div.main
-    /  %div.wrapper
-    /    = haml :_breadcrumb
-    /    = yield
-    = haml :_breadcrumb
+    = haml :_header
     = yield
-    %footer
-      %div.wrapper
-        %p MIFF underground
-
+    = haml :_footer
