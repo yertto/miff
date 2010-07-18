@@ -10,6 +10,9 @@ use Rack::Auth::Basic do |username, password|
 end if ENV['SITE_PASSWORD']
 
 
+MY_VERSION = File.open(File.dirname(__FILE__) + "/VERSION").read.strip
+
+
 def create_film_resource(res)
   # helper method to creat
   names = res.storage_name
@@ -201,6 +204,18 @@ __END__
             %a{:href=>url, :class=>current_section(url)}= name.capitalize
 
 
+@@ _footer
+%footer
+  %div.wrapper
+    %p
+      Powered by
+      %a{:href=>"http://github.com/yertto/miff/blob/v#{MY_VERSION}/server.rb"} this code
+      , hosted by
+      %a{:href=>"http://heroku.com"} heroku
+      , supported by
+      %a{:href=>"http://newfangled.com.au"} newfangled
+
+
 @@ layout
 %html
   %head
@@ -215,7 +230,4 @@ __END__
     %div.main
       %div.wrapper
         = yield
-    %footer
-      %div.wrapper
-        %p MIFF underground
-
+    = haml :_footer
