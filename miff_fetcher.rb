@@ -1,12 +1,15 @@
 #!/usr/bin/ruby -rrubygems
 require 'extlib'
 
+require 'logger'
+
 require 'doc_fetcher'
 require 'db'
 require 'fixes'
-USE_FIXES = true
 
 HOST = 'http://www.melbournefilmfestival.com.au'
+
+LOGGER = Logger.new('error.log')
 
 
 module Miff
@@ -86,7 +89,7 @@ class Film
       still_url = HOST+still
       film_id = still_url.split('/')[-2].to_i
       film = Film.first_or_create(:id => film_id)
-      h = get_details(doc.xpath('//div[@class="filmdetails"]').text.strip)
+      h = film.get_details(doc.xpath('//div[@class="filmdetails"]').text.strip)
       if h
         # has n associations
         [Director, Producer, Writer, Language].each { |res|
@@ -144,10 +147,10 @@ class Film
 
   PAT_DETAILS = Regexp.compile('^(?:D(/P)?(/S)? (.*?))(?: P (.*?)\s*)?(?: S (.*?))?(?: (Dist|WS) (.*?))?(?: L (.*?)(?: w/(.*) subtitles)?)?\s+TD\s+(3D\s+)?(?:(16mm|35mm|betacamsp|digibeta|DCP|HDCAM)\s*/)?(\d{4})$')
 
-  def self.get_details(details)
+  def get_details(details)
     # XXX - refactor candidate
     if details.size > 0
-      details = Details::fix(details) if USE_FIXES
+      details = Details::fix(details) unless ENV['IGNORE_FIXES']
       if m = PAT_DETAILS.match(details)
         h = Hash[ [:p, :s, :directors, :producers, :writers, :distributor_type, :distributor, :languages, :subtitle, :three_d, :medium, :year].zip(m.captures) ]
         [:directors, :producers, :writers, :languages].each { |x| h[x] = h[x].split(', ') if h[x] }
@@ -156,7 +159,9 @@ class Film
         h[:three_d  ] = !h[:three_d].nil?
         Hash[h.select { |k,v| !v.nil? }]  # get rid of nilled attributes
       else
-        warn "WARNING Parseing error for details: #{details.inspect}"
+        msg = "Parseing details for film (id=#{id}): #{details.inspect}"
+        LOGGER.error msg
+        warn "ERROR -- : #{msg}" 
       end
     end
   end
