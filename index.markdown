@@ -30,26 +30,26 @@ as MIFF is running from Thu 22nd July - Sat 7th July, 2010
 
 ## Create your own MIFF app
 
-{% highlight ruby %}
+{% highlight sh %}
 git clone http://github.com/yertto/miff.git
 cd miff
 {% endhighlight %}
 
 install required gems using [bundle](http://gembundler.com/bundle_install.html):
 
-{% highlight ruby %}
+{% highlight sh %}
 bundle install --without production
 {% endhighlight %}
 
 [scrape](http://nokogiri.org) and [store](http://datamapper.org/docs) the data:
 
-{% highlight ruby %}
+{% highlight sh %}
 ./miff_fetcher.rb
 {% endhighlight %}
 
 start your [sinatra](http://www.sinatrarb.com/intro.html) app:
 
-{% highlight ruby %}
+{% highlight sh %}
 ./server.rb
 {% endhighlight %}
 
@@ -58,14 +58,17 @@ start your [sinatra](http://www.sinatrarb.com/intro.html) app:
 
 install [heroku](http://docs.heroku.com/heroku-command#installation):
 
-{% highlight ruby %}
+{% highlight sh %}
 sudo gem install heroku
 heroku keys:add
 {% endhighlight %}
+
+{% highlight sh %}
 Enter your Heroku credentials.
 Email: joe@example.com
 Password: 
 Uploading ssh public key /Users/joe/.ssh/id_rsa.pub
+{% endhighlight %}
 
 
 [create](http://docs.heroku.com/creating-apps) your own app:
