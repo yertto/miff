@@ -8,13 +8,15 @@ title:        MIFF
 
 [Melbourne International Film Festival](http://www.melbournefilmfestival.com.au) ([scraped](http://nokogiri.org) and remixed into a [datamapper](http://datamapper.org/docs)/[haml](http://haml-lang.com/tutorial.html)/[sinatra](http://www.sinatrarb.com/intro.html) app)
 
+Use:
 
-[http://www.melbournefilmfestival.com.au](http://www.melbournefilmfestival.com.au)
-                |
-                V
-[http://github.com/yertto/miff](http://github.com/yertto/miff)
-                |
-                V
+  [http://github.com/yertto/miff](http://github.com/yertto/miff)
+
+To turn:
+
+  [http://www.melbournefilmfestival.com.au](http://www.melbournefilmfestival.com.au)
+
+Into:
  * [http://miffatra.heroku.com](http://miffatra.heroku.com)
  * [http://miffatra-yertto1.heroku.com](http://miffatra-yertto1.heroku.com)
  * [...](http://wiki.github.com/yertto/miff/)
