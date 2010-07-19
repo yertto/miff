@@ -30,28 +30,38 @@ as MIFF is running from Thu 22nd July - Sat 7th July, 2010
 
 ## Create your own MIFF app
 
-    git clone http://github.com/yertto/miff.git
-    cd miff
+{% highlight ruby %}
+git clone http://github.com/yertto/miff.git
+cd miff
+{% endhighlight %}
 
 install required gems using [bundle](http://gembundler.com/bundle_install.html):
 
-    bundle install --without production
+{% highlight ruby %}
+bundle install --without production
+{% endhighlight %}
 
 [scrape](http://nokogiri.org) and [store](http://datamapper.org/docs) the data:
 
-    ./miff_fetcher.rb
+{% highlight ruby %}
+./miff_fetcher.rb
+{% endhighlight %}
 
 start your [sinatra](http://www.sinatrarb.com/intro.html) app:
 
-    ./server.rb
+{% highlight ruby %}
+./server.rb
+{% endhighlight %}
 
 
 ## Host it on heroku
 
 install [heroku](http://docs.heroku.com/heroku-command#installation):
 
-    sudo gem install heroku
-    heroku keys:add
+{% highlight ruby %}
+sudo gem install heroku
+heroku keys:add
+{% endhighlight %}
 
 :
 
@@ -62,12 +72,16 @@ install [heroku](http://docs.heroku.com/heroku-command#installation):
 
 [create](http://docs.heroku.com/creating-apps) your own app:
 
-    heroku create miff-joe
-    git push heroku master
+{% highlight ruby %}
+heroku create miff-joe
+git push heroku master
+{% endhighlight %}
 
 [push](http://docs.heroku.com/taps#import-push-to-heroku) data to it:
 
-    heroku db:push sqlite://devel.db
+{% highlight ruby %}
+heroku db:push sqlite://devel.db
+{% endhighlight %}
 
 add a link to your app on the [wiki](http://wiki.github.com/yertto/miff/)
 
