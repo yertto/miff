@@ -62,13 +62,11 @@ install [heroku](http://docs.heroku.com/heroku-command#installation):
 sudo gem install heroku
 heroku keys:add
 {% endhighlight %}
+Enter your Heroku credentials.
+Email: joe@example.com
+Password: 
+Uploading ssh public key /Users/joe/.ssh/id_rsa.pub
 
-:
-
-    Enter your Heroku credentials.
-    Email: joe@example.com
-    Password: 
-    Uploading ssh public key /Users/joe/.ssh/id_rsa.pub
 
 [create](http://docs.heroku.com/creating-apps) your own app:
 
