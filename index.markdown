@@ -1,3 +1,9 @@
+---
+layout:       default
+body_id:      home
+title:        MIFF
+---
+
 # The MIFF challenge:
 
 [Melbourne International Film Festival](http://www.melbournefilmfestival.com.au) ([scraped](http://nokogiri.org) and remixed into a [datamapper](http://datamapper.org/docs)/[haml](http://haml-lang.com/tutorial.html)/[sinatra](http://www.sinatrarb.com/intro.html) app)
