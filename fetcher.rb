@@ -2,7 +2,7 @@ require 'date'
 require 'open-uri'
 require 'pathname'
 
-SLEEP_TIME = 3  # Be nice to the host and sleep between http requests
+SLEEP_TIME = ENV['SLEEP_TIME'] ? ENV['SLEEP_TIME'].to_i : 3  # Be nice to the host and sleep between http requests
 
 module Fetcher
 
