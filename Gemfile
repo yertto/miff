@@ -1,6 +1,9 @@
 source 'http://gemcutter.org'
 
 gem 'sinatra'       , '1.0'
+
+#gem 'memcached-northscale-heroku'
+gem 'memcached'
                     
 gem 'haml'          , '2.2.23'
                     

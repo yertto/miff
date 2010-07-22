@@ -1,6 +1,8 @@
+.bundle
 .cache*
 .db
 .*.sw?
 devel.db
 *.log
 TODO
+.rvmrc
