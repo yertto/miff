@@ -243,6 +243,9 @@ __END__
       %a{:href=>"http://heroku.com"} heroku
       , supported by
       %a{:href=>"http://newfangled.com.au"} newfangled
+      ,
+      %a{:href=>"http://www.twitter.com/yertto"}
+        %img{:src=>"http://twitter-badges.s3.amazonaws.com/t_mini-a.png", :alt=>"Follow yertto on Twitter"}
 
 
 @@ layout
