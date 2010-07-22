@@ -61,9 +61,9 @@ create_get '/films'                    , Film
 create_get '/films/:id'                , Film
 
 # special cases ...
-create_partial :_date_a , '%a(href="/films/sessions/date/#{date}")= date.strftime("%a %b %d")'
+create_partial :_date_a , '%a(href="/films/sessions/dates/#{date}")= date.strftime("%a %b %d")'
 
-get '/films/sessions/date/:date' do
+get '/films/sessions/dates/:date' do
   date = Date.parse(params[:date])
   haml :sessions, :locals => { :date => date, :sessions => Session.all(:date => date) }
 end
@@ -183,15 +183,10 @@ __END__
 
 
 @@ session
-%h2= "#{haml :_films_a} : #{haml :_sessions_a} : #{session.id}"
 %div.list= haml :_sessions_table, :locals => { :sessions => [session] }
 
 
 @@ sessions
-%h2
-  = "#{haml :_films_a} : #{haml :_sessions_a}"
-  - if locals.has_key? :date
-    = ": #{haml :_date_a, :locals => {:date => date}}"
 %div.list= haml :_sessions_table, :locals => { :sessions => sessions }
   
 
