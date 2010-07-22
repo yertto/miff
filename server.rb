@@ -1,18 +1,15 @@
 #!/usr/local/bin/ruby -rrubygems
 require 'sinatra'
 
-require 'db'
 require 'helpers'
 
+require 'db'
 
 use Rack::Auth::Basic do |username, password|
   [username, password] == ['admin', ENV['SITE_PASSWORD']]
 end if ENV['SITE_PASSWORD']
 
-configure do
-  require 'memcached'
-  CACHE = Memcached.new
-end
+
 
 MY_VERSION = File.open(File.dirname(__FILE__) + "/VERSION").read.strip
 

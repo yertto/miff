@@ -1,5 +1,12 @@
 require 'haml'
 require 'extlib'
+#require 'sinatra/memcache'
+require 'memcached'
+
+configure do
+  require 'memcached'
+  CACHE = Memcached.new
+end
 
 module Sinatra::Templates
   alias :haml_orig :haml
@@ -10,9 +17,13 @@ module Sinatra::Templates
 end
 
 def render_objects(sym, resource, key=nil)
-  haml sym, :locals => {
-    sym => key.nil? ? resource.all : resource.first(key => params[key])
-   }
+  cache_key = "#{resource.storage_name}.#{key}"
+  objects = CACHE.get(cache_key)
+  unless objects
+    objects = key.nil? ? resource.all : resource.first(key => params[key])
+    CACHE.set(cache_key, objects)
+  end
+  haml sym, :locals => { sym => objects }
 end
 
 def create_partial(sym, code)

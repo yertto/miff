@@ -3,8 +3,10 @@ source 'http://gemcutter.org'
 gem 'sinatra'       , '1.0'
 
 #gem 'memcached-northscale-heroku'
-#gem 'memcached'
-gem 'memcached-northscale'
+#gem 'memcached-northscale'
+gem 'memcached'
+#gem 'memcached-northscale' , :require => 'memcached'
+#gem 'sinatra-memcache'
                     
 gem 'haml'          , '2.2.23'
                     
