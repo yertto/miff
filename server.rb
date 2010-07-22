@@ -70,7 +70,7 @@ end
 
 
 get '/' do
-  redirect '/films/countries'
+  redirect '/films/languages'
 end
 
 
