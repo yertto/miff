@@ -30,7 +30,6 @@ def create_film_resource(res)
 
   unless names == "sessions"
     template names.to_sym, &lambda { """
-%h2= \"<a href='/films'>Films</a>: \#{haml :_#{names}_a}\"
 %table.list
   - #{names}.each do |x|
     %tr
@@ -38,7 +37,6 @@ def create_film_resource(res)
       %td= link_to x"""
     }
     template name.to_sym, &lambda { """
-%h2= \"<a href='/films'>Films</a>: \#{haml :_#{names}_a}: \#{#{name}}\"
 %div.list= haml :_film_table, :locals => { :films => #{name}.films }"""
     }
   end
@@ -158,11 +156,6 @@ __END__
 
 
 @@ films
-%h2
-  - if locals.has_key? :title
-    = "<a href='/films'>Films</a> : #{title} (<a href='/#{title_type}'>all #{title_type}</a>)"
-  - else
-    Films
 %div.list= haml :_film_table, :locals => { :films => films }
 
 
