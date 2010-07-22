@@ -4,7 +4,7 @@ gem 'sinatra'       , '1.0'
 
 #gem 'memcached-northscale-heroku'
 #gem 'memcached-northscale'
-gem 'memcached'
+#gem 'memcached'
 #gem 'memcached-northscale' , :require => 'memcached'
 #gem 'sinatra-memcache'
                     
