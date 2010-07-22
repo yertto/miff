@@ -1,12 +1,7 @@
 require 'haml'
 require 'extlib'
 #require 'sinatra/memcache'
-require 'memcached'
-
-configure do
-  require 'memcached'
-  CACHE = Memcached.new
-end
+#require 'memcached'
 
 module Sinatra::Templates
   alias :haml_orig :haml
