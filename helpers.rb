@@ -1,7 +1,5 @@
 require 'haml'
 require 'extlib'
-#require 'sinatra/memcache'
-#require 'memcached'
 
 module Sinatra::Templates
   alias :haml_orig :haml
@@ -12,12 +10,9 @@ module Sinatra::Templates
 end
 
 def render_objects(sym, resource, key=nil)
-  cache_key = "#{resource.storage_name}.#{key}"
-  objects = CACHE.get(cache_key)
-  unless objects
-    objects = key.nil? ? resource.all : resource.first(key => params[key])
-    CACHE.set(cache_key, objects)
-  end
+  #cache_key = "#{resource.storage_name}.#{key}"
+  response["Cache-Control"] = "max-age=300, public"
+  objects = key.nil? ? resource.all : resource.first(key => params[key])
   haml sym, :locals => { sym => objects }
 end
 
