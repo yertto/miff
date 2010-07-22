@@ -1,7 +1,7 @@
 #!/usr/local/bin/ruby -rrubygems
 require 'sinatra'
 
-require 'memcached'
+require 'Memcached'
 CACHE = Memcached.new
 
 require 'helpers'
