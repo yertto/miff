@@ -11,12 +11,13 @@ end
 
 def render_objects(sym, resource, key=nil)
   #cache_key = "#{resource.storage_name}.#{key}"
-  response["Cache-Control"] = "max-age=300, public"
+  response["Cache-Control"] = "max-age=3600, public"
   objects = key.nil? ? resource.all : resource.first(key => params[key])
   haml sym, :locals => { sym => objects }
 end
 
 def create_partial(sym, code)
+  p code
   template sym, &lambda { code }
 end
 
@@ -28,8 +29,9 @@ def create_get(route, resource)
   name = Extlib::Inflection::singular(name) unless key.nil?
   get route, &lambda { render_objects name.to_sym, resource, key }
   partial = m.nil? ?
-    "%a(href='#{route}')> #{names.capitalize}" :
-    "%a(href='#{m.captures[0]}#"+"{#{name}.#{key}}#{m.captures[2]}')= #{name}"
+    "%a(href='#{route}')> #{names.capitalize}" : "\
+- if #{name}
+  %a(href='#{m.captures[0]}#"+"{#{name}.#{key}}#{m.captures[2]}')= #{name}"
 	create_partial "_#{name}_a".to_sym, partial
 end
 
