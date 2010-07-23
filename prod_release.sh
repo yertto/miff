@@ -2,7 +2,7 @@
 editor=${EDITOR:-vi}
 version=`cat VERSION`
 
-$editor $version                                  &&
+$editor VERSION                                   &&
 git commit -am "v$version release"                &&
 git tag v`cat VERSION`                            &&
 git push github                                   &&
