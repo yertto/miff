@@ -275,13 +275,13 @@ __END__
 @@ layout
 %html
   %head
-    %title= "MIFF | #{title}"
+    %title= "MIFF index | #{title}"
     %meta{"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8"}
-    %meta{:name => 'title', :content => "MIFF | #{title}"}
-    - keywords = title.split(' | ')+'Melbourne,film,film festival,Melbourne International Film Festival,MIFF,alternative,underground'.split(',')
-    - description = "Melbourne International Film Festival (MIFF).  An alternative website that allows more indexed searching than the official website.  "
+    %meta{:name => 'title', :content => "MIFF index | #{title}"}
+    - keywords = title.split(' | ')+'Melbourne,film,film festival,Melbourne International Film Festival,MIFF,index,alternative,underground'.split(',')
+    - description = "  Melbourne International Film Festival (MIFF).  (from an alternative, more indexed website than the official website.)"
     - if object.is_a? Film
-      - description += object.tagline
+      - description = object.tagline + description
       - keywords += [:title, :year, :medium, :category, :section, :distributor].map { |x| [x, object.send(x)] }
       - keywords += [:countries, :languages, :directors, :producers, :writers].map { |x| [x, object.send(x)] }
     %meta{"name" => "description", :content => description.strip}
