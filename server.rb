@@ -1,5 +1,6 @@
 #!/usr/local/bin/ruby -rrubygems
 require 'sinatra'
+require 'xml-sitemap'
 
 require 'helpers'
 
@@ -68,6 +69,17 @@ get '/films/sessions/dates/:date' do
   haml :sessions, :locals => { :date => date, :sessions => Session.all(:date => date) }
 end
 
+get '/robots.txt' do
+  headers['Content-Type'] = 'text/plain'
+  "Sitemap: http://miff.heroku.com/sitemap.xml"
+end
+
+get '/sitemap.xml' do
+  headers['Content-Type'] = 'text/xml'
+  map = XmlSitemap::Map.new('miff.heroku.com')
+  Film.all.each { |f| map.add(:url => "/films/#{f.id}") }
+  map.render
+end
 
 get '/' do
   redirect '/films/languages'
@@ -76,6 +88,7 @@ end
 
 __END__
 
+  Film.all.inject( XmlSitemap::Map.new('domain.com') ) { |m| m.add(:url => "/films/#{f.id}") }.render
 
 @@ _film_table
 %table
@@ -239,6 +252,8 @@ __END__
     %p
       Powered by
       %a{:href=>"http://github.com/yertto/miff/blob/v#{MY_VERSION}/server.rb"} this code
+      , from
+      %a{:href=>"http://melbournefilmfestival.com.au"} official MIFF website
       , hosted by
       %a{:href=>"http://heroku.com"} heroku
       , supported by
@@ -260,8 +275,17 @@ __END__
 @@ layout
 %html
   %head
+    %title= "MIFF | #{title}"
     %meta{"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8"}
-    %title Miff
+    %meta{:name => 'title', :content => "MIFF | #{title}"}
+    - keywords = title.split(' | ')+'Melbourne,film,film festival,Melbourne International Film Festival,MIFF,alternative,underground'.split(',')
+    - description = "Melbourne International Film Festival (MIFF).  An alternative website that allows more indexed searching than the official website.  "
+    - if object.is_a? Film
+      - description += object.tagline
+      - keywords += [:title, :year, :medium, :category, :section, :distributor].map { |x| [x, object.send(x)] }
+      - keywords += [:countries, :languages, :directors, :producers, :writers].map { |x| [x, object.send(x)] }
+    %meta{"name" => "description", :content => description.strip}
+    %meta{"name" => "keywords", :content => keywords.flatten.compact.uniq.join(', ') }
     %link{:rel => 'stylesheet', :type => 'text/css', :href => '/css/01-reset.css' , :media => 'screen projection'}
     %link{:rel => 'stylesheet', :type => 'text/css', :href => '/css/02-forms.css' , :media => 'screen projection'}
     %link{:rel => 'stylesheet', :type => 'text/css', :href => '/css/03-miff.css'  , :media => 'screen projection'}

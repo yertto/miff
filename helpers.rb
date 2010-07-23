@@ -49,3 +49,33 @@ def current_section(url)
   #(request.path =~ Regexp.new("#{url}/*")) ? 'current' : ''
   request.path == url ? 'current' : ''
 end
+
+def get_resource(res_name)
+  RESOURCES_ALL.detect { |res| res.storage_name == res_name }
+end
+
+def object
+  @object ||= unless @object
+    bits = request.path.split('/')
+    res = get_resource(bits[-2])
+    object = res.get(bits[-1]) if res
+  end
+end
+
+def title
+  @title ||= unless @title
+    bits = request.path.split('/')
+    res = get_resource(bits[-2])
+    if res
+      object = res.get(bits[-1])
+      "#{res.name} | #{res.get(bits[-1])}"
+    else
+      res = get_resource(bits[-1])
+      if res
+        "#{res.storage_name.capitalize}"
+      else
+        "#{bits[-1]}"
+      end
+    end
+  end
+end
