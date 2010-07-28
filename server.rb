@@ -71,7 +71,11 @@ end
 
 get '/robots.txt' do
   headers['Content-Type'] = 'text/plain'
-  "Sitemap: http://miff.heroku.com/sitemap.xml"
+  """\
+User-agent: *
+Disallow:
+Sitemap: http://miff.heroku.com/sitemap.xml
+"""
 end
 
 get '/sitemap.xml' do
@@ -82,7 +86,7 @@ get '/sitemap.xml' do
 end
 
 get '/' do
-  redirect '/films/languages'
+  redirect '/films/languages' , 301
 end
 
 
