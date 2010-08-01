@@ -5,6 +5,6 @@
 devel.db
 *.log
 .rvmrc
-TODO
+TODO*
 test
 freebase
