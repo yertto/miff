@@ -73,7 +73,7 @@ get '/robots.txt' do
   headers['Content-Type'] = 'text/plain'
   """\
 User-agent: *
-Disallow:
+Allow: /
 Sitemap: http://miff.heroku.com/sitemap.xml
 """
 end
