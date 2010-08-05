@@ -280,6 +280,7 @@ __END__
 %html
   %head
     %title= "MIFF index | #{title}"
+    %meta{:name => 'google-site-verification', :content => 'EgzsWP5RBxl62mI6WvVwz3Buhyql9zzt5PMDF6aCDko'}
     %meta{"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8"}
     %meta{:name => 'title', :content => "MIFF index | #{title}"}
     - keywords = title.split(' | ')+'Melbourne,film,film festival,Melbourne International Film Festival,MIFF,index,alternative,underground'.split(',')
